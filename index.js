@@ -4,7 +4,6 @@ var stream = require('stream'),
 
 module.exports = HtmlPngStream;
 
-console.log(phantomjs.path);
 
 function HtmlPngStream(opts) {
   if (typeof opts === 'undefined') opts = {};
