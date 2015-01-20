@@ -4,6 +4,7 @@ var stream = require('stream'),
 
 module.exports = HtmlPngStream;
 
+var URL_REGEX = /^(http|https|file)\:/;
 
 function HtmlPngStream(opts) {
   if (typeof opts === 'undefined') opts = {};
@@ -25,18 +26,24 @@ function HtmlPngStream(opts) {
     var self = this;
 
     var html = chunk.toString('utf8');
-      if (!resized) {
-        // remove the chrome 'chrome' from the window size
-        driver.manage().window().setSize(opts.width,
-          opts.height + (opts.browser === 'chrome' ? opts.chromeHeight : 0));
-        resized = true;
-      }
+    if (!resized) {
+      // remove the chrome 'chrome' from the window size
+      driver.manage().window().setSize(opts.width,
+        opts.height + (opts.browser === 'chrome' ? opts.chromeHeight : 0));
+      resized = true;
+    }
 
-    driver.executeScript(function (html) {
-        var doc = document.open('text/html');
-        doc.write(html);
-        doc.close();
-      }, html);
+    if (URL_REGEX.test(html)) {
+      // is a URL, get it
+      driver.get(html);
+    } else {
+      driver.executeScript(function (html) {
+          var doc = document.open('text/html');
+          doc.write(html);
+          doc.close();
+        }, html);
+    }
+
     driver.takeScreenshot().then(function (data) {
         self.push(new Buffer(data, 'base64'));
         cb();
