@@ -51,7 +51,7 @@ describe('html-png-stream', function() {
   it('should be able to render a custom image size', function(done) {
     this.timeout(0);
 
-    var ps = htmlPngStream({ width: 1280, height: 720, browser: 'chrome' });
+    var ps = htmlPngStream({ width: 1280, height: 720 });
     var rs = stream.Readable();
     rs._read = function () {};
     rs.pipe(ps);
