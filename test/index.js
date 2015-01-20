@@ -9,7 +9,7 @@ describe('html-png-stream', function() {
   it('should be able to render basic HTML', function(done) {
     this.timeout(0);
 
-    var ps = htmlPngStream({});
+    var ps = htmlPngStream();
     var rs = stream.Readable();
     rs._read = function () {};
     rs.pipe(ps);
