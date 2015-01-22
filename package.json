@@ -27,8 +27,7 @@
     "url": "https://github.com/eugeneware/html-png-stream/issues"
   },
   "dependencies": {
-    "phantomjs-bin": "^1.0.1",
-    "selenium-webdriver": "^2.44.0"
+    "html2png": "^1.0.0"
   },
   "devDependencies": {
     "expect.js": "^0.3.1",
